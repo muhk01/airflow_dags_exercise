@@ -27,28 +27,29 @@ dag = DAG(
 )
 # define the tasks
 # download task
+# since my dags in docker environment save at /tmp folder 
 download = BashOperator(
     task_id='download',
-    bash_command='wget "https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-DB0250EN-SkillsNetwork/labs/Apache%20Airflow/Build%20a%20DAG%20using%20Airflow/web-server-access-log.txt"',
+    bash_command='curl https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-DB0250EN-SkillsNetwork/labs/Apache%20Airflow/Build%20a%20DAG%20using%20Airflow/web-server-access-log.txt -o /tmp/web-server-access-log.txt',
     dag=dag,
 )
 # extract task
 extract = BashOperator(
     task_id='extract',
-    bash_command='cut -d"#" -f1,4 web-server-access-log.txt > /home/project/airflow/dags/extracted.txt',
+    bash_command='cut -d"#" -f1,4 /tmp/web-server-access-log.txt > /tmp/extracted.txt',
     dag=dag,
 )
 # transform task
 transform = BashOperator(
     task_id='transform',
-    bash_command='tr "[a-z]" "[A-Z]" < /home/project/airflow/dags/extracted.txt > /home/project/airflow/dags/capitalized.txt',
+    bash_command='tr "[a-z]" "[A-Z]" < /tmp/extracted.txt > /tmp/capitalized.txt',
     dag=dag,
 )
 
 # lad task
 load = BashOperator(
     task_id='load',
-    bash_command='zip log.zip capitalized.txt' ,
+    bash_command='zip /tmp/log.zip /tmp/capitalized.txt' ,
     dag=dag,
 )
 # task pipeline
