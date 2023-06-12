@@ -99,3 +99,22 @@ Example of task pipeline is like below :
 extract >> transform >> load
 ```
 the task extract must run first, followed by transform, followed by the task load.
+
+# Submitting DAG
+
+use sudo in the terminal before the command used to submit the dag into $AIRFLOW_HOME/dags.
+```
+cp my_first_dag.py $AIRFLOW_HOME/dags
+```
+
+Verify that our DAG actually got submitted.
+Run following command to check whether dags is already in list.
+```
+airflow dags list|grep "my-first-dag"
+```
+You should see your DAG name in the output.
+
+Run the command below to list out all the tasks in my-first-dag.
+```
+airflow tasks list my-first-dag
+```
