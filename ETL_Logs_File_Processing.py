@@ -11,7 +11,7 @@ from airflow.utils.dates import days_ago
 default_args = {
     'owner': 'Muhamad Khoirul',
     'start_date': days_ago(0),
-    'email': ['Muhamad@somemail.com'],
+    'email': ['muhamadkoirul@gmail.com'],
     'email_on_failure': False,
     'email_on_retry': False,
     'retries': 1,
