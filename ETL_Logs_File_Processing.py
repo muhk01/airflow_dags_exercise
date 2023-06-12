@@ -30,7 +30,7 @@ dag = DAG(
 # since my dags in docker environment save at /tmp folder 
 download = BashOperator(
     task_id='download',
-    bash_command='curl https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-DB0250EN-SkillsNetwork/labs/Apache%20Airflow/Build%20a%20DAG%20using%20Airflow/web-server-access-log.txt -o /tmp/web-server-access-log.txt',
+    bash_command='curl https://<hosts-web>/web-server-access-log.txt -o /tmp/web-server-access-log.txt',
     dag=dag,
 )
 # extract task
